@@ -1,0 +1,146 @@
+.mainpage-wrapper {
+    flex-grow: 1;
+    overflow-y: auto;
+    background-color: var(--bg-dark);
+}
+
+.mainpage-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 80vh;
+    padding: 4rem 2rem;
+    background: var(--primary-gradient);
+    border-bottom-left-radius: 80px;
+}
+
+.mainpage-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.mainpage-subtitle {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin-bottom: 2.5rem;
+}
+
+.mainpage-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.btn {
+    font-size: 1rem;
+    padding: 0.8rem 2rem;
+    border-radius: var(--border-radius-md);
+}
+
+.btn .btn-icon {
+    font-size: 1.2rem;
+}
+
+.primary-btn {
+    background-color: var(--bg-light);
+    color: var(--primary-color);
+}
+.primary-btn:hover {
+    background-color: #f0f0f0;
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}
+
+.secondary-btn {
+    background-color: transparent;
+    color: var(--text-primary);
+    border: 2px solid var(--text-primary);
+}
+.secondary-btn:hover {
+    background-color: var(--text-primary);
+    color: var(--primary-color);
+    transform: translateY(-3px);
+}
+
+/* --- Features Section --- */
+.features-container {
+    padding: 6rem 2rem;
+    text-align: center;
+}
+
+.features-container h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 3rem;
+    color: var(--text-primary);
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.feature-card {
+    background-color: var(--secondary-color);
+    padding: 2.5rem;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+}
+.feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-md);
+}
+
+.feature-icon {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+}
+
+.feature-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.feature-card p {
+    font-size: 1rem;
+    color: var(--text-secondary);
+}
+
+/* --- Footer --- */
+.mainpage-footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    border-top: 1px solid var(--border-color);
+}
+
+@media (max-width: 768px) {
+    .mainpage-title {
+        font-size: 2.5rem;
+    }
+    .mainpage-subtitle {
+        font-size: 1rem;
+    }
+    .mainpage-buttons {
+        flex-direction: column;
+        width: 80%;
+    }
+    .features-container {
+        padding: 4rem 1.5rem;
+    }
+    .features-container h2 {
+        font-size: 2rem;
+    }
+}

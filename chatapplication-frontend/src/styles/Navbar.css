@@ -1,0 +1,113 @@
+.navbar {
+    width: 100%;
+    background-color: var(--bg-dark);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 1rem 2rem;
+    z-index: 1000;
+    flex-shrink: 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-decoration: none;
+}
+
+.navbar-logo {
+    color: var(--primary-color);
+    font-size: 2rem;
+}
+
+.navbar-menu {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.navbar-link {
+    text-decoration: none;
+    color: var(--text-secondary);
+    font-weight: 600;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    border-radius: var(--border-radius-sm);
+}
+
+.navbar-link:hover {
+    color: var(--text-primary);
+    background-color: var(--secondary-color);
+}
+
+.navbar-link.icon-link span {
+    display: block;
+}
+
+.navbar-link.primary-link {
+    background: var(--primary-gradient);
+    color: var(--text-primary);
+    padding: 0.5rem 1rem;
+}
+.navbar-link.primary-link:hover {
+    opacity: 0.9;
+    box-shadow: 0 5px 15px rgba(106, 17, 203, 0.4);
+}
+
+.navbar-user {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.user-info {
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.logout-btn {
+    background: var(--secondary-color);
+    color: var(--error-color);
+    padding: 0.75rem;
+    font-size: 1.2rem;
+    border-radius: 50%;
+}
+.logout-btn:hover {
+    background-color: var(--border-color);
+    color: #fff;
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        padding: 1rem;
+    }
+    .navbar-brand {
+        font-size: 1.25rem;
+    }
+    .navbar-logo {
+        font-size: 1.5rem;
+    }
+    .user-info {
+        display: none; /* Hide welcome text on mobile */
+    }
+    .navbar-link.icon-link span {
+        display: none; /* Hide text, show only icons */
+    }
+    .navbar-link.primary-link {
+        padding: 0.75rem;
+    }
+}
