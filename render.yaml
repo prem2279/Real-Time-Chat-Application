@@ -1,20 +1,18 @@
-# render.yaml (This is what you will deploy to Render)
-version: "3.8"
+# render.yaml
+version: 3
 
 services:
-  # --- Backend Service (Spring Boot) ---
-  backend:
-    build: ./chatapplication-backend
-    container_name: springboot-backend
+  - type: web
+    name: backend
+    env: docker
+    dockerfilePath: ./chatapplication-backend/Dockerfile
 
-  # --- Frontend Service (Vite React) ---
-  frontend:
-    build: ./chatapplication-frontend
-    container_name: react-frontend
-
-    # Pass environment variables directly via the environment block
-    environment:
-      VITE_API_URL: /api
-
-    depends_on:
+  - type: web
+    name: frontend
+    env: docker
+    dockerfilePath: ./chatapplication-frontend/Dockerfile
+    envVars:
+      - key: VITE_API_URL
+        value: "/api"
+    dependsOn:
       - backend
