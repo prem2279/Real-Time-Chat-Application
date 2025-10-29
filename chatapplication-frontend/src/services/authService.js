@@ -1,7 +1,7 @@
 import axios from "axios"
 
 
-const API_URL='http://localhost:8080';
+const API_URL= import.meta.env.VITE_API_URL;
 
 const api = axios.create({
     baseURL:API_URL,
@@ -47,16 +47,26 @@ api.interceptors.response.use(
 
 const generateUserColor = ()=>{
     const colors = [
-        '#FFFFFF', // White
-        '#000000', // Black
-        '#FF0000', // Red
-        '#00FF00', // Green
-        '#0000FF', // Blue
-        '#FFFF00', // Yellow
-        '#00FFFF', // Cyan / Aqua
-        '#FF00FF', // Magenta / Fuchsia
-        '#808080', // Gray
-        '#C0C0C0'  // Silver
+        '#1E90FF', // Dodger Blue
+        '#FF1493', // Deep Pink
+        '#FF4500', // Orange Red
+        '#32CD32', // Lime Green
+        '#8A2BE2', // Blue Violet
+        '#00CED1', // Dark Turquoise
+        '#FF6347', // Tomato
+        '#9370DB', // Medium Purple
+        '#FF8C00', // Dark Orange
+        '#20B2AA', // Light Sea Green
+        '#C71585', // Medium Violet Red
+        '#4682B4', // Steel Blue
+        '#3CB371', // Medium Sea Green
+        '#DC143C', // Crimson
+        '#008B8B', // Dark Cyan
+        '#B22222', // Firebrick
+        '#4169E1', // Royal Blue
+        '#A0522D', // Sienna
+        '#DA70D6', // Orchid
+        '#708090'  // Slate Gray (neutral option)
     ];
 
     return colors[Math.floor(Math.random()*colors.length)];

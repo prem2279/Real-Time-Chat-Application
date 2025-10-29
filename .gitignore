@@ -1,0 +1,27 @@
+# File containing environment variables used by Docker Compose (highly recommended)
+.env 
+.env.local
+
+# ----------------------------------------
+# 2. General Docker Ignored Files
+# ----------------------------------------
+
+# Ignore local build directories and caches
+/node_modules
+/target
+/dist
+/build
+/out
+
+# Ignore all Docker build artifacts (optional, but clean)
+# *.class
+# *.jar
+# *.war
+
+# ----------------------------------------
+# 3. IDE and OS Files
+# ----------------------------------------
+.DS_Store
+*.iml
+.idea/
+.vscode/

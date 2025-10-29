@@ -1,0 +1,14 @@
+# Ignore IDE files and OS metadata
+.idea/
+.vscode/
+*.iml
+.DS_Store
+
+# Ignore the central secrets file
+.env
+.env.*
+
+# Ignore service build outputs to keep the build context small
+frontend/node_modules
+frontend/dist
+backend/target

@@ -1,0 +1,6 @@
+# Ignore Node dependencies to use fresh installs inside the container
+node_modules
+
+# Ignore all local environment variable files
+.env
+.env.*

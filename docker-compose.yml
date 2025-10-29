@@ -1,0 +1,36 @@
+version: "3.8"
+
+services:
+  # --- Backend Service (Spring Boot) ---
+  backend:
+    build: ./chatapplication-backend
+    container_name: springboot-backend
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+
+
+    # No 'depends_on' needed for 'db' since it's external
+    # depends_on:
+    #   - db
+
+  # --- Frontend Service (Vite React) ---
+  frontend:
+    build:
+      context: ./chatapplication-frontend
+      args:
+         # Pass the environment variable as a build argument
+         VITE_API_URL_ARG: /api
+    container_name: react-frontend
+    ports:
+      - "3000:80" # Map host port 3000 to container's port 80 (Nginx)
+    environment:
+      # Vite variable, set at build time, pointing to the backend service name
+      VITE_API_URL: /api # This remains the same for internal container communication
+    depends_on:
+      - backend
+
+# The volumes section is also removed as it is no longer needed.
+# volumes:
+#   postgres_data:

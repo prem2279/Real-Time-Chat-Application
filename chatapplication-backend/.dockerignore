@@ -1,0 +1,14 @@
+# Ignore Maven build artifacts
+target/
+.mvn/wrapper/
+
+# Ignore local dependency cache
+.m2/
+
+# Ignore IDE files
+.idea/
+*.iml
+
+# Ignore all local environment variable files for security
+.env
+.env.*
