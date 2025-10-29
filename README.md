@@ -2,6 +2,9 @@ Developed a full-stack chat platform supporting public group chats, private mess
 
 Features:
 1)Real-Time Group Chat: Instant messaging with live typing indicators and fast message delivery.
+
 2)Private Messaging: Secure one-on-one chats for seamless personal communication.
+
 3)Online Presence: Real-time status updates to see who’s online and available.
+
 4)Scalable Architecture: Optimized backend and WebSocket handling for high concurrency.
