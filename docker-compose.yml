@@ -17,17 +17,17 @@ services:
 
   # --- Frontend Service (Vite React) ---
   frontend:
-    build: ./chatapplication-frontend
-      #context: ./chatapplication-frontend
-      #args:
+    build: #./chatapplication-frontend
+      context: ./chatapplication-frontend
+      args:
          # Pass the environment variable as a build argument
-        # VITE_API_URL_ARG: /api
+         VITE_API_URL: /api
     container_name: react-frontend
     ports:
       - "3000:80" # Map host port 3000 to container's port 80 (Nginx)
-    environment:
+    #environment:
       # Vite variable, set at build time, pointing to the backend service name
-      VITE_API_URL: /api # This remains the same for internal container communication
+      #VITE_API_URL: /api # This remains the same for internal container communication
     depends_on:
       - backend
 

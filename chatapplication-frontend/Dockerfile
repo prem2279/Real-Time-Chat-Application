@@ -4,7 +4,7 @@ FROM node:20-alpine AS build
 WORKDIR /app
 
 # 1. Define a BUILD ARGUMENT for the environment variable
-#ARG VITE_API_URL_ARG
+ARG VITE_API_URL
 
 # 2. Set the environment variable using the build argument
 ENV VITE_API_URL=${VITE_API_URL}
