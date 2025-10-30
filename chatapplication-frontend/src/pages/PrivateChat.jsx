@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import "../styles/PrivateChat.css";
 import { FiSend, FiX } from 'react-icons/fi'; // Import new icons
-
+const API_URL= import.meta.env.VITE_API_URL;
 const PrivateChat = ({
                          currentUser,
                          recipientUser,
@@ -37,7 +37,7 @@ const PrivateChat = ({
         const loadMessageHistory = async () => {
             try {
                 const response = await fetch(
-                    `http://localhost:8080/api/messages/private?user1=${currentUser}&user2=${recipientUser}`
+                    `${API_URL}/api/messages/private?user1=${currentUser}&user2=${recipientUser}`
                 );
                 if (response.ok && isMounted) {
                     const history = await response.json();

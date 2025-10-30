@@ -8,7 +8,11 @@ import "../styles/ChatArea.css";
 // Import icons
 import { FiSend, FiSmile, FiMenu, FiX } from 'react-icons/fi';
 
+const API_URL= import.meta.env.VITE_API_URL;
+
 const ChatArea = () => {
+
+
     const navigate = useNavigate();
     const [currentUser, setCurrentUser] = useState(() => authService.getCurrentUser());
     const { username, color: userColor } = currentUser || {};
@@ -99,7 +103,7 @@ const ChatArea = () => {
         if (!username) return;
 
         const client = new Client({
-            webSocketFactory: () => new SockJS("http://localhost:8080/ws"),
+            webSocketFactory: () => new SockJS(API_URL + "/ws"),
             reconnectDelay: 5000,
             connectHeaders: { username },
             debug: (str) => console.log("[STOMP DEBUG]", str),
