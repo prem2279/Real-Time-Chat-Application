@@ -1,17 +1,14 @@
-# render.yaml
+# render.yaml - Corrected Blueprint File
 
 services:
+  # --- Backend Service (Spring Boot) ---
   - type: web
     name: backend
-    env: docker
     rootDir: chatapplication-backend
-    dockerfilePath: Dockerfile
-
+  # --- Frontend Service (Vite React) ---
   - type: web
     name: frontend
-    env: docker
     rootDir: chatapplication-frontend
-    dockerfilePath: Dockerfile
     envVars:
       - key: VITE_API_URL
         value: "/api"
