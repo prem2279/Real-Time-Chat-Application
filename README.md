@@ -1,10 +1,94 @@
-Developed a full-stack chat platform supporting public group chats, private messaging, and real-time presence indicators. Built a responsive React frontend with a Spring Boot backend for chat storage, retrieval, and room management. Used Neon PostgreSQL to persist user profiles, chat messages, and room data. Implemented WebSockets with SockJS and STOMP.js for real-time messaging, achieving 200ms delivery latency. Optimized backend and WebSocket architecture to support multiple concurrent users, improving overall efficiency by 25%. Features include:
+🚀 Real-Time Chat Application
 
-Features:
-1)Real-Time Group Chat: Instant messaging with live typing indicators and fast message delivery.
+I developed a full-stack chat platform supporting public group chats, private messaging, and real-time presence indicators.
 
-2)Private Messaging: Secure one-on-one chats for seamless personal communication.
+🧩 Tech Stack
 
-3)Online Presence: Real-time status updates to see who’s online and available.
+    Frontend: React.js
+    Backend: Spring Boot, Spring Security
+    Database: PostgreSQL(hosted on Neon Cloud)
+    Real-time Communication: WebSockets, SockJS, STOMP.js
+    Deployment: Docker, Render (Free Tier)
 
-4)Scalable Architecture: Optimized backend and WebSocket handling for high concurrency.
+⚙️ Key Features
+    
+    💬 Real-Time Group Chat: Instant messaging with live typing indicators.
+    🔐 Private Messaging: Secure one-on-one chats for personal communication.
+    👥 Online Presence: Real-time status updates showing who’s online.
+    🗃️ Persistent Storage: PostgreSQL on Neon for storing users, messages, and rooms.
+    ⚡ Optimized WebSocket Performance: Achieved ~200ms latency for smooth chat flow.
+    🐳 Dockerized Setup: Tested locally with reverse proxy configuration. 
+    🌐 Deployed on Render: (Note: Free tier may cause cold starts of ~50s on first load).
+
+🛠️ Upcoming Integrations
+    
+    📁 File Transfer: Send images and files between users.
+    📴 Offline Messaging: Deliver messages when users come online
+    🤖 Chat Model Integration: Integrate an AI-powered chat model (like ChatGPT).
+
+🚀 Impact
+
+Working with these technologies has strengthened my expertise in full-stack development, real-time systems, cloud deployment, and containerization, preparing me to build scalable and responsive applications in production environments.
+
+🌐 Live URL
+
+    🔗 Real-Time Chat Application - https://real-time-chat-application-jk6g.onrender.com/
+
+
+🧠 Tech Keywords
+
+  React.js Spring Boot Spring Security PostgreSQL Neon Cloud WebSockets SockJS STOMP.js Docker Render Full Stack Development Cloud Deployment Real-Time Apps
+
+⚙️ Setup Instructions
+
+🖥️ 1. Clone the Repository
+
+    git clone https://github.com/prem2279/Real-Time-Chat-Application.git
+    cd Real-Time-Chat-Application
+
+🧩 2. Backend Setup (Spring Boot)
+
+    Navigate to the backend folder:
+    cd chatapplication-backend
+    
+    Create a .env file in the backend root directory and add the following keys:
+    
+    SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/your_database
+    SPRING_DATASOURCE_USERNAME=your_username
+    SPRING_DATASOURCE_PASSWORD=your_password
+    SPRING_SECRET=your_jwt_secret_key
+    SPRING_EXPIRATION=86400000
+    
+    Build and run the backend:
+    ./mvnw spring-boot:run
+
+    (or use your IDE like IntelliJ or Eclipse to run the main class)
+
+💻 3. Frontend Setup (React)
+
+    Navigate to the frontend folder:
+    cd ../chatapplication-frontend
+    
+    Install dependencies:
+    npm install
+    
+    Start the React app:
+    npm run dev
+    
+    Open your browser at http://localhost:5173
+
+🐳 4. Run with Docker (Optional)
+
+    To run both frontend and backend via Docker:
+
+docker-compose up --build
+
+🧾 Notes
+
+    Ensure PostgreSQL is running locally or provide a valid Neon Cloud DB URL in .env.
+
+    If using Render Free Tier, the first request may take ~50 seconds due to cold start.
+
+💬 Feedback
+
+    I’m open to suggestions and improvements! Feel free to open issues or share ideas for enhancing this project.
