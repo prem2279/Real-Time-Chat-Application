@@ -24,7 +24,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     public void registerStompEndpoints(StompEndpointRegistry registry) {
 
         registry.addEndpoint("/ws").
-                setAllowedOrigins("http://localhost:5173","http://localhost:3000","https://reat-timechatapplication-backend-latest.onrender.com").
+                setAllowedOrigins("http://localhost:5173","http://localhost:3000","https://real-time-chat-application-backend-1kch.onrender.com").
                 withSockJS();
     }
 }
