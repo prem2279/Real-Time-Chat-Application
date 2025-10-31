@@ -8,7 +8,7 @@ I developed a full-stack chat platform supporting public group chats, private me
     Backend: Spring Boot, Spring Security
     Database: PostgreSQL(hosted on Neon Cloud)
     Real-time Communication: WebSockets, SockJS, STOMP.js
-    Deployment: Docker, Render (Free Tier)
+    Deployment: Docker, AWS EC2
 
 ⚙️ Key Features
     
@@ -32,7 +32,7 @@ Working with these technologies has strengthened my expertise in full-stack deve
 
 🌐 Live URL
 
-    🔗 Real-Time Chat Application - https://real-time-chat-application-jk6g.onrender.com/
+    🔗 Real-Time Chat Application - http://ec2-18-216-235-121.us-east-2.compute.amazonaws.com
 
 
 🧠 Tech Keywords
@@ -86,8 +86,6 @@ docker-compose up --build
 🧾 Notes
 
     Ensure PostgreSQL is running locally or provide a valid Neon Cloud DB URL in .env.
-
-    If using Render Free Tier, the first request may take ~50 seconds due to cold start.
 
 💬 Feedback
 
