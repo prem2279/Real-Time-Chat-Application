@@ -18,7 +18,7 @@ I developed a full-stack chat platform supporting public group chats, private me
     🗃️ Persistent Storage: PostgreSQL on Neon for storing users, messages, and rooms.
     ⚡ Optimized WebSocket Performance: Achieved ~200ms latency for smooth chat flow.
     🐳 Dockerized Setup: Tested locally with reverse proxy configuration. 
-    🌐 Deployed on Render: (Note: Free tier may cause cold starts of ~50s on first load).
+    🌐 Deployed on Amazon EC2
 
 🛠️ Upcoming Integrations
     
@@ -32,12 +32,15 @@ Working with these technologies has strengthened my expertise in full-stack deve
 
 🌐 Live URL
 
-    🔗 Real-Time Chat Application - http://ec2-18-216-235-121.us-east-2.compute.amazonaws.com
+🔗 Real-Time Chat Application - [http://ec2-18-216-235-121.us-east-2.compute.amazonaws.com](http://ec2-18-216-235-121.us-east-2.compute.amazonaws.com)
 
+Live Demo
+
+[🎬 Watch Demo Video](./demo.mp4)
 
 🧠 Tech Keywords
 
-  React.js Spring Boot Spring Security PostgreSQL Neon Cloud WebSockets SockJS STOMP.js Docker Render Full Stack Development Cloud Deployment Real-Time Apps
+  React.js Spring Boot Spring Security PostgreSQL Neon Cloud WebSockets SockJS STOMP.js Docker Amazon EC2 Full Stack Development Cloud Deployment Real-Time Apps
 
 ⚙️ Setup Instructions
 
