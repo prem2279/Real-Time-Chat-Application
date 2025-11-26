@@ -39,7 +39,7 @@ public class AuthController {
         LoginResponseDTO loginResponseDTO = authenticationService.login(loginRequestDTO);
         ResponseCookie responseCookie = ResponseCookie.from("JWT", loginResponseDTO.getToken())
                 .sameSite("strict")
-                .maxAge(1*60*60)
+                .maxAge(1*60*60*60)
                 .httpOnly(true)
                 .secure(true)
                 .path("/")

@@ -1,16 +1,36 @@
+
 spring:
   datasource:
-      url: ${SPRING_DATASOURCE_URL}
-      username: ${SPRING_DATASOURCE_USERNAME}
-      password: ${SPRING_DATASOURCE_PASSWORD}
-
+    url: jdbc:h2:mem:chatapplicaton
+    driverClassName: org.h2.Driver
+    username: pk
+    password: password
   jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
-      ddl-auto: update
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+      ddl-auto: create-drop
+    show-sql: true
+  h2:
+    console:
+      enabled: true
+
+
+#spring:
+#  datasource:
+#    url: ${SPRING_DATASOURCE_URL}
+#    username: ${SPRING_DATASOURCE_USERNAME}
+#    password: ${SPRING_DATASOURCE_PASSWORD}
+
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#    properties:
+#      hibernate:
+#       dialect: org.hibernate.dialect.PostgreSQLDialect
 
 jwt:
   secret: ${SPRING_SECRET}
   expiration: ${SPRING_EXPIRATION}
+
+api:
+  url: ${SPRING_OLLAMA_URL}

@@ -1,21 +1,24 @@
-import { useNavigate } from "react-router-dom";
-import { authService } from "../services/authService.js";
-import { useCallback, useEffect, useRef, useState } from "react";
+import {useNavigate} from "react-router-dom";
+import {authService} from "../services/authService.js";
+import {useCallback, useEffect, useRef, useState} from "react";
 import SockJS from "sockjs-client";
-import { Client } from "@stomp/stompjs";
+import {Client} from "@stomp/stompjs";
 import PrivateChat from "./PrivateChat";
+import formatTime from "../services/formatTime"
+import BotChat from "./BotChat";
 import "../styles/ChatArea.css";
 // Import icons
-import { FiSend, FiSmile, FiMenu, FiX } from 'react-icons/fi';
+import {FiSend, FiSmile, FiMenu, FiX} from 'react-icons/fi';
 
-const API_URL= import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL;
 
 const ChatArea = () => {
 
 
     const navigate = useNavigate();
-    const [currentUser, setCurrentUser] = useState(() => authService.getCurrentUser());
-    const { username, color: userColor } = currentUser || {};
+    const [isLoading, setIsLoading] = useState(true);
+    const [currentUser, setCurrentUser] = useState(null);
+    const {username, color: userColor} = currentUser || {};
 
     const [message, setMessage] = useState("");
     const [messages, setMessages] = useState([]);
@@ -34,19 +37,35 @@ const ChatArea = () => {
     const messagesEndRef = useRef(null);
     const typingTimeoutRef = useRef(null);
 
+    const [botMessages, setBotMessages] = useState(new Map());
+
     const emojis = ["😀", "😂", "😍", "😊", "😎", "👍", "👎", "❤️", "🔥", "🚀", "🎉"];
 
-    // ... (Your useEffect hooks from line 41 to 177 remain exactly the same) ...
+    useEffect(() => {
+        // 2. Load the user data
+        const user = authService.getCurrentUser();
+
+        // 3. Set the state
+        setCurrentUser(user);
+
+        // 4. Set loading to false once check is done
+        setIsLoading(false);
+    }, []);
+
     // Redirect if not logged in
     useEffect(() => {
+
+        if (isLoading) {
+            return;
+        }
         if (!currentUser) {
             navigate("/login");
         }
-    }, [currentUser, navigate]);
+    }, [isLoading, currentUser, navigate]);
 
     // Scroll to bottom on new messages
     useEffect(() => {
-        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+        messagesEndRef.current?.scrollIntoView({behavior: "smooth"});
     }, [messages]);
 
     // --- FIX 2: Create a useEffect to handle new messages ---
@@ -105,7 +124,7 @@ const ChatArea = () => {
         const client = new Client({
             webSocketFactory: () => new SockJS(API_URL + "/ws"),
             reconnectDelay: 5000,
-            connectHeaders: { username },
+            connectHeaders: {username},
             debug: (str) => console.log("[STOMP DEBUG]", str),
             onConnect: () => {
                 console.log("✅ Connected to STOMP");
@@ -141,7 +160,7 @@ const ChatArea = () => {
                 // Notify server of new user
                 client.publish({
                     destination: "/app/chat.addUser",
-                    body: JSON.stringify({ sender:username, type: "JOIN", color: userColor }),
+                    body: JSON.stringify({sender: username, type: "JOIN", color: userColor}),
                 });
 
                 // Fetch online users (This part is correct)
@@ -191,6 +210,15 @@ const ChatArea = () => {
         }
     };
 
+    const openBotChat = () => {
+
+        setBotMessages((prev) => new Map(prev).set("AI Bot", true));
+        // On mobile, close sidebar when opening a chat
+        if (window.innerWidth < 768) {
+            setIsSidebarOpen(false);
+        }
+    };
+
     const closePrivateChat = (otherUser) => {
         setPrivateMessages((prev) => {
             const newMap = new Map(prev);
@@ -198,6 +226,14 @@ const ChatArea = () => {
             return newMap;
         });
         unregisterPrivateMessageHandler(otherUser);
+    };
+
+    const closeBotChat = () => {
+        setBotMessages((prev) => {
+            const newMap = new Map(prev);
+            newMap.delete("AI Bot");
+            return newMap;
+        });
     };
 
     const sendMessage = (e) => {
@@ -223,26 +259,12 @@ const ChatArea = () => {
         if (stompClient.current?.connected && e.target.value.trim()) {
             stompClient.current.publish({
                 destination: "/app/chat.sendMessage",
-                body: JSON.stringify({ sender: username, type: "TYPING" }),
+                body: JSON.stringify({sender: username, type: "TYPING"}),
             });
         }
     };
 
     const addEmoji = (emoji) => setMessage((prev) => prev + emoji);
-
-    const formatTime = (timestamp) => {
-        let timeInput = timestamp;
-        if (typeof timeInput === 'string' && !timeInput.endsWith('Z') && timeInput.includes('T')) {
-            timeInput += 'Z';
-        }
-        return new Date(timeInput).toLocaleTimeString('en-US', {
-            timeZone: 'America/New_York',
-            hour12: true, // Use 12-hour clock
-            hour: "numeric",
-            minute: "2-digit",
-        });
-    };
-
 
     // ------------------ JSX ------------------
     return (
@@ -252,7 +274,7 @@ const ChatArea = () => {
                 <div className="sidebar-header">
                     <h2>Users Online</h2>
                     <button className="sidebar-toggle-close" onClick={() => setIsSidebarOpen(false)}>
-                        <FiX />
+                        <FiX/>
                     </button>
                 </div>
                 <div className="users-list">
@@ -265,7 +287,7 @@ const ChatArea = () => {
                             <div className="avatar-wrapper">
                                 <div
                                     className="user-avatar"
-                                    style={{ backgroundColor: user === username ? userColor : "#777" }}
+                                    style={{backgroundColor: user === username ? userColor : "#777"}}
                                 >
                                     {user.charAt(0).toUpperCase()}
                                 </div>
@@ -278,6 +300,23 @@ const ChatArea = () => {
                             )}
                         </div>
                     ))}
+                    <div
+                        key='bot'
+                        className="user-item"
+                        onClick={() => openBotChat()}
+                    >
+                        <div className="avatar-wrapper">
+                            <div
+                                className="user-avatar"
+                                style={{backgroundColor: "#777"}}
+                            >
+                                AI
+                            </div>
+                            <span className="online-indicator"></span>
+                        </div>
+                        <span className="user-name">AI Bot</span>
+                    </div>
+
                 </div>
             </div>
 
@@ -286,7 +325,7 @@ const ChatArea = () => {
                 <div className="chat-header">
                     {/* --- NEW SIDEBAR TOGGLE FOR MOBILE --- */}
                     <button className="sidebar-toggle-open" onClick={() => setIsSidebarOpen(true)}>
-                        <FiMenu />
+                        <FiMenu/>
                     </button>
                     <h4>Global Chat</h4>
                 </div>
@@ -304,7 +343,8 @@ const ChatArea = () => {
                             {msg.type === "CHAT" && (
                                 <div className={`chat-message ${msg.sender === username ? "own-message" : ""}`}>
                                     <div className="message-info">
-                                        <span className="sender" style={{ color: msg.sender !== username ? (msg.color || "#007bff") : 'white' }}>
+                                        <span className="sender"
+                                              style={{color: msg.sender !== username ? (msg.color || "#007bff") : 'white'}}>
                                             {msg.sender === username ? 'You' : msg.sender}
                                         </span>
                                         <span className="time">{formatTime(msg.timestamp)}</span>
@@ -319,7 +359,7 @@ const ChatArea = () => {
                             <div className="typing-indicator">{isTyping} is typing...</div>
                         )}
                     </div>
-                    <div ref={messagesEndRef} />
+                    <div ref={messagesEndRef}/>
                 </div>
 
                 <div className="input-area">
@@ -338,7 +378,7 @@ const ChatArea = () => {
                             onClick={() => setShowEmojiPicker(!showEmojiPicker)}
                             className="emoji-btn"
                         >
-                            <FiSmile />
+                            <FiSmile/>
                         </button>
                         <input
                             type="text"
@@ -349,7 +389,7 @@ const ChatArea = () => {
                             maxLength={500}
                         />
                         <button className="send-btn" type="submit" disabled={!message.trim()}>
-                            <FiSend />
+                            <FiSend/>
                         </button>
                     </form>
                 </div>
@@ -359,7 +399,7 @@ const ChatArea = () => {
             {Array.from(privateMessages.keys()).map((otherUser, index) => (
                 <PrivateChat
                     key={otherUser}
-                    style={{ '--chat-index': index }}
+                    style={{'--chat-index': index}}
                     currentUser={username}
                     recipientUser={otherUser}
                     isRecipientOnline={onlineUsers.has(otherUser)}
@@ -368,6 +408,17 @@ const ChatArea = () => {
                     onClose={() => closePrivateChat(otherUser)}
                     registerPrivateMessageHandler={registerPrivateMessageHandler}
                     unregisterPrivateMessageHandler={unregisterPrivateMessageHandler}
+                />
+            ))}
+
+            {Array.from(botMessages.keys()).map((otherUser, index) => (
+                <BotChat
+                    key="AI Bot"
+                    style={{'--chat-index': index}}
+                    currentUser={username}
+                    userColor={userColor}
+                    recipientUser="AI Bot"
+                    onClose={() => closeBotChat()}
                 />
             ))}
         </div>

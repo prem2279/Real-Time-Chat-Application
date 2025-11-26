@@ -12,6 +12,7 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 
 @Controller
 public class ChatController {
@@ -37,7 +38,7 @@ public class ChatController {
             System.out.println("User added successfully "+ chatMessage.getSender()+ " with session ID: "
                     + headerAccessor.getSessionId());
 
-            chatMessage.setTimestamp(LocalDateTime.now());
+            chatMessage.setTimestamp(LocalDateTime.now(ZoneOffset.UTC));
 
             if(chatMessage.getMessage() == null){
                 chatMessage.setMessage("");
@@ -54,9 +55,7 @@ public class ChatController {
         System.out.println("Message"+ chatMessage);
         if(userService.userExists(chatMessage.getSender())){
 
-            if(chatMessage.getTimestamp()==null){
-                chatMessage.setTimestamp(LocalDateTime.now());
-            }
+            chatMessage.setTimestamp(LocalDateTime.now(ZoneOffset.UTC));
 
             if(chatMessage.getMessage()==null){
                 chatMessage.setMessage("");
@@ -74,7 +73,7 @@ public class ChatController {
                 chatMessage.setMessage("");
             }
             if(chatMessage.getTimestamp()==null){
-                chatMessage.setTimestamp(LocalDateTime.now());
+                chatMessage.setTimestamp(LocalDateTime.now(ZoneOffset.UTC));
             }
             // Setting the message type
             chatMessage.setType(ChatMessage.MessageType.PRIVATE_MESSAGE);

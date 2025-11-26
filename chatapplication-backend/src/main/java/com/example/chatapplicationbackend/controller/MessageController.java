@@ -23,4 +23,11 @@ public class MessageController {
         List<ChatMessage> messages = chatMessageReository.findPrivateMessagesBetweenTwoUsers(user1,user2);
         return ResponseEntity.ok(messages);
     }
+
+    @GetMapping("/bot")
+    public ResponseEntity<List<ChatMessage>> getBotMessages(@RequestParam String user1) {
+        List<ChatMessage> messages = chatMessageReository.findMessagesBetweenBotAndUser(user1);
+
+        return ResponseEntity.ok(messages);
+    }
 }

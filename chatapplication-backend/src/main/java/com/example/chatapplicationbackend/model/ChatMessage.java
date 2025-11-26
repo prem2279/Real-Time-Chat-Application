@@ -17,6 +17,7 @@ public class ChatMessage {
     @Column(nullable = false)
     private String sender;
 
+    @Lob
     @Column(nullable = false)
     private String message;
 
@@ -33,6 +34,6 @@ public class ChatMessage {
     private MessageType type;
 
     public enum MessageType {
-        CHAT, PRIVATE_MESSAGE, JOIN, LEAVE, TYPING
+        CHAT, PRIVATE_MESSAGE, JOIN, LEAVE, TYPING, CHATBOT
     }
 }

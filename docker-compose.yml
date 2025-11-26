@@ -24,7 +24,7 @@ services:
          VITE_API_URL: /api
     container_name: react-frontend
     ports:
-      - "3000:80" # Map host port 3000 to container's port 80 (Nginx)
+      - "80:80" # Map host port 3000 to container's port 80 (Nginx)
     #environment:
       # Vite variable, set at build time, pointing to the backend service name
       #VITE_API_URL: /api # This remains the same for internal container communication

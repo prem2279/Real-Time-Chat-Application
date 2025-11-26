@@ -15,6 +15,7 @@ import org.springframework.web.socket.messaging.SessionConnectedEvent;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
 import java.time.LocalDateTime; // <-- FIX: Import this
+import java.time.ZoneOffset;
 import java.util.Map; // <-- FIX: Import this
 
 @Component
@@ -57,7 +58,7 @@ public class WebSocketListener {
                 chatMessage.setType(ChatMessage.MessageType.LEAVE);
                 chatMessage.setSender(userName);
                 chatMessage.setMessage(userName + " has left"); // Optional message
-                chatMessage.setTimestamp(LocalDateTime.now()); // Optional timestamp
+                chatMessage.setTimestamp(LocalDateTime.now(ZoneOffset.UTC)); // Optional timestamp
 
                 messagingTemplate.convertAndSend("/topic/public", chatMessage);
             }

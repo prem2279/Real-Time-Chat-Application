@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import "../styles/PrivateChat.css";
 import { FiSend, FiX } from 'react-icons/fi'; // Import new icons
+import formatTime from "../services/formatTime"
+
 const API_URL= import.meta.env.VITE_API_URL;
 const PrivateChat = ({
                          currentUser,
@@ -133,20 +135,6 @@ const PrivateChat = ({
                 messageIdRef.current.delete(messageId);
             }
         }
-    };
-
-
-    const formatTime = (timestamp) => {
-        let timeInput = timestamp;
-        if (typeof timeInput === 'string' && !timeInput.endsWith('Z') && timeInput.includes('T')) {
-            timeInput += 'Z';
-        }
-        return new Date(timeInput).toLocaleTimeString('en-US', {
-            timeZone: 'America/New_York',
-            hour12: true, // Use 12-hour clock
-            hour: "numeric",
-            minute: "2-digit",
-        });
     };
 
     // --- NEW JSX with style prop ---
